@@ -6,8 +6,9 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 8080;
-const MONGODB_URL =
-  "mongodb+srv://admin:admin@nicconverter.abfmmtx.mongodb.net/nicConverter?retryWrites=true&w=majority";
+const MONGODB_URL = "mongodb+srv://admin:admin@nicconverter.abfmmtx.mongodb.net/nicConverter?retryWrites=true&w=majority";
+
+app.use(express.json());
 
 mongoose
   .connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -17,5 +18,6 @@ mongoose
       console.log(`Server is running on port ${PORT}`);
     });
   })
-  .catch((err) => console.error("Error connecting to MongoDB", err));
+  .catch(err => console.error("Error connecting to MongoDB", err));
+  
 app.use("/users", userRoutes);
